@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
-import { Database } from '@/lib/database.types'
+import { Database } from '../lib/database.types'
 import {
   DndContext,
   closestCenter,
@@ -89,7 +89,7 @@ export default function AdminPage() {
   const [previewUrl, setPreviewUrl] = useState('')
   const [redirectUrl, setRedirectUrl] = useState('/admin')
   const user = useUser()
-  const supabase = useSupabaseClient<Database>()
+  const supabase = useSupabaseClient() as any
 
   // Set redirect URL on client side only
   useEffect(() => {
@@ -156,7 +156,7 @@ export default function AdminPage() {
 
       // Get signed URLs for photos
       const photosWithUrls = await Promise.all(
-        photosData.map(async (photo) => {
+        photosData.map(async (photo: Photo) => {
           const { data: signedUrlData } = await supabase.storage
             .from('photos')
             .createSignedUrl(photo.storage_path, 3600)

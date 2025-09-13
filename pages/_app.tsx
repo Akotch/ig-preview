@@ -1,4 +1,4 @@
-import { createBrowserClient } from '@supabase/ssr'
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider } from '@supabase/auth-helpers-react'
 import { useState } from 'react'
 import type { AppProps } from 'next/app'
@@ -7,10 +7,7 @@ import '../styles/globals.css'
 
 export default function App({ Component, pageProps }: AppProps) {
   const [supabaseClient] = useState(() => 
-    createBrowserClient<Database>(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    )
+    createPagesBrowserClient()
   )
 
   return (
