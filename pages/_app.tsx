@@ -1,12 +1,12 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
-import { useState } from 'react'
 import { createBrowserClient } from '@supabase/ssr'
 import { SessionContextProvider } from '@supabase/auth-helpers-react'
-import { Database } from '@/lib/database.types'
+import { useState } from 'react'
+import type { AppProps } from 'next/app'
+import { Database } from '../lib/database.types'
+import '../styles/globals.css'
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [supabaseClient] = useState(() =>
+  const [supabaseClient] = useState(() => 
     createBrowserClient<Database>(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
