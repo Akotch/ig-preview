@@ -52,9 +52,14 @@ function SortablePhoto({ photo, onDelete }: { photo: PhotoWithSignedUrl; onDelet
       ref={setNodeRef}
       style={style}
       {...attributes}
-      {...listeners}
       className="photo-item relative group"
     >
+      {/* Drag handle area - excludes the delete button */}
+      <div
+        {...listeners}
+        className="absolute inset-0 cursor-grab active:cursor-grabbing"
+        style={{ zIndex: 1 }}
+      />
       {photo.signedUrl && (
         <Image
           src={photo.signedUrl}
@@ -67,9 +72,14 @@ function SortablePhoto({ photo, onDelete }: { photo: PhotoWithSignedUrl; onDelet
       <button
         onClick={(e) => {
           e.stopPropagation()
+          e.preventDefault()
           onDelete(photo.id)
         }}
-        className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+        onPointerDown={(e) => {
+          e.stopPropagation()
+        }}
+        className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+        style={{ zIndex: 10 }}
       >
         ×
       </button>
