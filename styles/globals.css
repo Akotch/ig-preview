@@ -22,10 +22,21 @@
   }
   
   .photo-grid {
-    @apply grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
+    @apply grid gap-1 grid-cols-3 sm:gap-2 md:gap-3 lg:gap-4;
   }
   
   .photo-item {
-    @apply aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity relative;
+    @apply aspect-square bg-gray-100 rounded-sm sm:rounded-md overflow-hidden cursor-pointer hover:opacity-90 transition-all duration-200 relative;
+  }
+  
+  /* Instagram-style mobile grid */
+  @media (max-width: 640px) {
+    .photo-grid {
+      @apply gap-0.5;
+    }
+    
+    .photo-item {
+      @apply rounded-none;
+    }
   }
 }
